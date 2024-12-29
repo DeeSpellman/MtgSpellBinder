@@ -10,27 +10,28 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var cards: [Card]
 
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(items) { item in
+                ForEach(cards) { card in
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        Text("Item at \(card.cardName)")
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text(card.cardName)
                     }
                 }
-                .onDelete(perform: deleteItems)
+                .onDelete(perform: deleteCards)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                    //error will be fixed with next steps
+                    Button(action: addCard()) {
+                        Label("Add Card", systemImage: "plus")
                     }
                 }
             }
@@ -39,17 +40,18 @@ struct ContentView: View {
         }
     }
 
-    private func addItem() {
+    private func addCard() {
+        //next steps - change to open user entry, enter card number
         withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
+            let newCard = Card(cardNum: <#T##Int#>, cardName: <#T##String#>, cardType: <#T##String#>, cardSet: <#T##String#>, cardRarity: <#T##String#>, cardImage: <#T##String?#>)
+            modelContext.insert(newCard)
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteCards(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(items[index])
+                modelContext.delete(cards[index])
             }
         }
     }
@@ -57,5 +59,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: Card.self, inMemory: true)
 }
