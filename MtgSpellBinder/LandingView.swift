@@ -18,6 +18,8 @@ struct LandingView: View {
             Text("manage your cards")
         }
         }
+    
+    //checking commits are working again
         
        
         
