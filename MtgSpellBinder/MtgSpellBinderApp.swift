@@ -12,7 +12,7 @@ import SwiftData
 struct MtgSpellBinderApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Card.self,
+            Card.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +25,7 @@ struct MtgSpellBinderApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LandingView()
         }
         .modelContainer(sharedModelContainer)
     }
