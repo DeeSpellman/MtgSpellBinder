@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SwiftData
+
 
 struct LandingView: View {
     @Query private var cards: [Card]
